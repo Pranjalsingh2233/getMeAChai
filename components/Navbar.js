@@ -12,7 +12,7 @@ export default function Navbar() {
       <nav className="flex justify-between items-center h-full">
         <Link href={"/"}>
           <div className="logo font-bold text-lg flex justify-center items-center">
-            <img src="/tea.gif" alt="tea" width={44} />
+            <img className="invertImg" src="/tea.gif" alt="tea" width={44} />
             <span>GetMeAChai!</span>
           </div>
         </Link>
@@ -78,7 +78,7 @@ export default function Navbar() {
                   </li>
                   <li>
                     <Link
-                      href="#"
+                      href={`/${session.user.name}`}
                       className="inline-flex items-center w-full p-2 hover:bg-gray-700 hover:text-heading rounded"
                     >
                       Your Page

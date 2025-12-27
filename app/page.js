@@ -7,7 +7,7 @@ export default function Home() {
         <h1 className="flex justify-center items-center font-bold text-5xl">
           Buy Me a Chai
           <span>
-            <img src="tea.gif" width={88} alt="tea" />
+            <img className="invertImg" src="tea.gif" width={88} alt="tea" />
           </span>
         </h1>
         <p>
