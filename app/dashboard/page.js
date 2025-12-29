@@ -1,20 +1,32 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { updateProfile, fetchUsers } from "@/actions/userActions";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 
 export default function Dashboard() {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
   const router = useRouter();
-  if (!session) {
-    router.push("/login");
-  }
+
+  useEffect(() => {
+    getData();
+    if (!session) {
+      router.push("/login");
+    }
+  }, [session, router]);
+
+  const getData = async () => {
+    let u = await fetchUsers(session.user.name);
+    setFormData(u);
+  };
+
   const [formData, setFormData] = React.useState({
     name: "",
     email: "",
     username: "",
-    profile: "",
-    cover: "",
+    profilePic: "",
+    coverPic: "",
     razorpayId: "",
     razorpaySecret: "",
   });
@@ -23,12 +35,28 @@ export default function Dashboard() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = async (data) => {
+    update();
+    let a = await updateProfile(data, session.user.name);
+    toast("Profile Updated Successfully!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  };
+
   return (
     <div className="py-16 max-w-3xl mx-auto">
       <h1 className="text-center mb-10 text-3xl font-bold">
         Welcome to your Dashboard
       </h1>
-      <form>
+      <form action={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input
           onChange={handleChange}
@@ -64,8 +92,8 @@ export default function Dashboard() {
           className="mt-2 mb-2 p-2 w-full bg-slate-800 rounded-lg"
           type="text"
           id="profile"
-          name="profile"
-          value={formData.profile}
+          name="profilePic"
+          value={formData.profilePic}
         />
         <br />
         <label htmlFor="cover">Cover Picture</label>
@@ -74,8 +102,8 @@ export default function Dashboard() {
           className="mt-2 mb-2 p-2 w-full bg-slate-800 rounded-lg"
           type="text"
           id="cover"
-          name="cover"
-          value={formData.cover}
+          name="coverPic"
+          value={formData.coverPic}
         />
         <br />
         <label htmlFor="razorpayId">Razorpay Id</label>
@@ -105,6 +133,19 @@ export default function Dashboard() {
           Submit
         </button>
       </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
     </div>
   );
 }
