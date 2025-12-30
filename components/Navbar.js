@@ -8,8 +8,8 @@ export default function Navbar() {
   const { data: session } = useSession();
 
   return (
-    <header className="bg-gray-900 text-white px-4 h-16">
-      <nav className="flex justify-between items-center h-full">
+    <header className="bg-gray-900 text-white px-4 md:h-16">
+      <nav className="flex flex-col md:flex-row justify-between items-center h-full">
         <Link href={"/"}>
           <div className="logo font-bold text-lg flex justify-center items-center">
             <img className="invertImg" src="/tea.gif" alt="tea" width={44} />
@@ -29,7 +29,7 @@ export default function Navbar() {
               <button
                 id="dropdownDefaultButton"
                 data-dropdown-toggle="dropdown"
-                className=" inline-flex items-center justify-center text-white bg-brand box-border border border-transparent hover:bg-blue-800 focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none bg-blue-700 rounded me-5"
+                className=" inline-flex items-center justify-center text-white bg-brand box-border border border-transparent hover:bg-blue-800 focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none bg-blue-700 rounded md:me-5"
                 type="button"
                 onClick={() => setShowDropdown(!showDropdown)}
                 onBlur={() => {

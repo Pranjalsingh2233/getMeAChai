@@ -4,16 +4,16 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-      <div className="flex flex-col justify-center items-center gap-4 text-white h-[44vh]">
-        <h1 className="flex justify-center items-center font-bold text-5xl">
+      <div className="flex flex-col justify-center items-center gap-4 text-white h-[44vh] px-5 md:px-0 text-xs md:text-base">
+        <h1 className="flex justify-center items-center font-bold text-2xl md:text-5xl">
           Buy Me a Chai
           <span>
-            <img className="invertImg" src="tea.gif" width={88} alt="tea" />
+            <img className="invertImg " src="tea.gif" width={88} alt="tea" />
           </span>
         </h1>
-        <p>
+        <p className="text-center">
           A crowdfunding platform for creators. Get funded by your fans and
-          followers. !
+          followers!
         </p>
         <div className="">
           <Link href="/login">
@@ -29,8 +29,8 @@ export default function Home() {
 
       <div className="bg-white h-1 opacity-5"></div>
 
-      <div className="text-white container mx-auto py-32">
-        <h2 className="text-3xl font-bold text-center mb-14">
+      <div className="text-white container text-center mx-auto py-20 md:py-32 px-5 md:px-0 text-xs md:text-base">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-14">
           Your fans can buy you a chai
         </h2>
         <div className="flex justify-around gap-5">
@@ -75,15 +75,13 @@ export default function Home() {
 
       <div className="bg-white h-1 opacity-5"></div>
 
-      <div className="text-white container mx-auto py-32">
-        <h2 className="text-3xl font-bold text-center mb-14">
+      <div className="text-white container mx-auto py-20 md:py-32 px-5 md:px-0 text-xs md:text-base">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-14">
           Learn more about us
         </h2>
-        <div className="flex flex-col items-center">
+        <div className="mx-auto w-[80%] h-[40vh] md:[50%]  flex flex-col items-center">
           <iframe
-            width="560"
-            height="315"
-            className="rounded-lg"
+            className="rounded-lg w-full h-full"
             src="https://www.youtube.com/embed/wnHW6o8WMas?si=fwdfJhp7c_3iA2Ai"
             title="YouTube video player"
             frameborder="0"

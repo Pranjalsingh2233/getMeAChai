@@ -11,7 +11,7 @@ export default function Login() {
   }
   return (
     <div className="text-white py-14 container mx-auto">
-      <h1 className=" text-center font-bold text-3xl">
+      <h1 className=" text-center font-bold text-xl md:text-3xl px-4">
         Login/Signup to Get your fans to support you!
       </h1>
       <div className="flex flex-col gap-2 min-h-screen items-center p-10">

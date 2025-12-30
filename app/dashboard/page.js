@@ -52,8 +52,8 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="py-16 max-w-3xl mx-auto">
-      <h1 className="text-center mb-10 text-3xl font-bold">
+    <div className="py-16 max-w-3xl mx-auto px-6 md:px-0">
+      <h1 className="text-center mb-10 text-2xl md:text-3xl font-bold">
         Welcome to your Dashboard
       </h1>
       <form action={handleSubmit}>

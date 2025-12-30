@@ -42,8 +42,13 @@ export const fetchPayments = async (username) => {
   await connectDB();
   let payments = await Payment.find({ to_user: username, done: true })
     .sort({ amount: -1 })
+    .limit(10)
     .lean();
-  return payments;
+  let totalPayments = await Payment.countDocuments({
+    to_user: username,
+    done: true,
+  });
+  return { payments, totalPayments };
 };
 
 export const updateProfile = async (data, oldUsername) => {

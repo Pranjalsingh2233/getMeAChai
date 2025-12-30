@@ -18,6 +18,7 @@ export default function PaymentPage({ username }) {
   });
   const [currentUser, setCurrentUser] = useState({});
   const [payments, setPayments] = useState({});
+  const [totalPayments, setTotalPayments] = useState(0);
 
   const handleChange = (e) => {
     setPaymentForm({
@@ -51,7 +52,8 @@ export default function PaymentPage({ username }) {
     let u = await fetchUsers(username);
     setCurrentUser(u);
     let dbPayments = await fetchPayments(username);
-    setPayments(dbPayments);
+    setPayments(dbPayments.payments);
+    setTotalPayments(dbPayments.totalPayments);
   };
 
   const pay = async (amount) => {
@@ -108,22 +110,20 @@ export default function PaymentPage({ username }) {
           Let's help {username} get a chai ☕
         </div>
         <div className="text-slate-400">
-          {payments.length > 0
-            ? `${payments.length} payments`
-            : "No payments yet"}{" "}
+          {totalPayments > 0 ? `${totalPayments} payments` : "No payments yet"}{" "}
           &bull;&nbsp; ₹
-          {payments.length > 0
+          {totalPayments > 0
             ? payments.reduce((acc, p) => acc + parseInt(p.amount), 0)
             : 0}{" "}
           raised
         </div>
       </div>
-      <div className="payment flex flex-wrap justify-center gap- mb-20">
-        <div className="supporters w-1/2 bg-slate-900 p-10 rounded-lg text-white ">
+      <div className="payment w-[80%] mx-auto flex flex-col md:flex-row justify-center gap-3 mb-20">
+        <div className="supporters w-full md:w-1/2 bg-slate-900 p-6 md:p-10 rounded-lg text-white ">
           {/* show all list of supporters as a leaderboard */}
-          <h2 className="font-bold text-2xl mb-5">Supporters</h2>
+          <h2 className="font-bold text-2xl mb-5">Top 10 Supporters</h2>
           <ul className="mx-5 text-lg">
-            {payments.length > 0 ? (
+            {totalPayments > 0 ? (
               payments.map((p, i) => (
                 <li key={i} className="my-4 flex gap-2 items-center">
                   <img src="avatar.gif" alt="user" width={33} />
@@ -139,7 +139,7 @@ export default function PaymentPage({ username }) {
             )}
           </ul>
         </div>
-        <div className="makePayments w-1/2 bg-slate-900 p-10 rounded-lg text-white ">
+        <div className="makePayments w-full md:w-1/2 bg-slate-900 p-6 md:p-10 rounded-lg text-white ">
           <h2 className="font-bold text-2xl mb-5">Make a Payment</h2>
           {/* input for name and message */}
           <div className="mb-2">
@@ -157,7 +157,7 @@ export default function PaymentPage({ username }) {
               name="message"
               className="w-full p-3 rounded-lg bg-slate-800"
               rows={4}
-              placeholder="Enter a message (optional)"
+              placeholder="Enter a message"
             ></textarea>
           </div>
           <div className="flex gap-2">
@@ -182,7 +182,7 @@ export default function PaymentPage({ username }) {
             </button>
           </div>
           {/* or choose from these amounts */}
-          <div className="flex gap-3 mt-5">
+          <div className="flex flex-wrap gap-3 mt-5">
             <button
               className="bg-slate-800 px-5 py-2 cursor-pointer rounded-lg font-medium hover:bg-slate-700 disabled:cursor-not-allowed"
               onClick={() => pay(1000)}
